@@ -1,6 +1,13 @@
+using Serilog;
 using TodoApi;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.ClearProviders();
+var logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
+builder.Logging.AddSerilog(logger);
 
 builder.Services.AddMyData(builder.Configuration);
 
